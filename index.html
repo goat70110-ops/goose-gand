@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ronin Course | Digital Store</title>
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        /* Container for Mobile-First Look */
+        .page-wrapper {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+        }
+
+        /* Top Banner & Timer Box */
+        .merged-container {
+            width: 96%;
+            margin: 10px auto;
+            background: linear-gradient(135deg,#4ade80,#16a34a);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .timer-part { padding: 10px 5px; text-align: center; color: #ffffff; }
+        .line1 { font-size: 11px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 5px; }
+        .line2 { display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .discount { background: #ffffff; color: #166534; padding: 3px 12px; border-radius: 20px; font-size: 13px; font-weight: 900; }
+        .timer-text { background: rgba(0,0,0,0.2); padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; }
+        .image-part { width: 100%; line-height: 0; }
+        .image-part img { width: 100%; display: block; cursor: pointer; }
+
+        /* Navigation Styles */
+        .ronin-nav-wrapper { width: 100%; padding: 8px 0; text-align: center; }
+        .nav-header-row { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 12px; }
+        .badge-small { padding: 3px 10px; border: 1.2px solid #000; border-radius: 5px; background: #fff; box-shadow: 1.5px 1.5px 0px #000; }
+        .badge-text { font-size: 10px; font-weight: 800; text-transform: uppercase; background: linear-gradient(90deg, #00b35c, #05e67a, #00b35c); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: flowTitle 3s linear infinite; }
+        .scroll-hint-side { font-size: 9px; color: #006400; font-weight: 800; animation: pulseHint 2s infinite; }
+        .nav-scroll-container { display: flex; overflow-x: auto; padding: 5px 10px; gap: 10px; scrollbar-width: none; }
+        .nav-scroll-container::-webkit-scrollbar { display: none; }
+        .nav-link-box { display: flex; flex-direction: column; align-items: center; text-decoration: none; min-width: 85px; color: #333; }
+        .nav-link-box i { font-size: 16px; color: #00b35c; padding: 8px; border-radius: 8px; border: 1.2px solid #000; background: #fff; box-shadow: 2px 2px 0px #000; transition: 0.3s; margin-bottom: 5px;}
+        .nav-link-box span { font-size: 9px; font-weight: 700; text-transform: uppercase; line-height: 1.2; text-align: center;}
+        .nav-link-box.active i { background: #00b35c; color: #fff; }
+
+        /* Product Grid */
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 10px; }
+        .product-card { background: #fff; padding: 10px; text-align: center; border: 1px solid #eee; display: flex; flex-direction: column; border-radius: 8px; }
+        .product-card img { width: 100%; border-radius: 8px; cursor: pointer; }
+        .title { color: #000; font-weight: 800; font-size: 11px; margin: 10px 0 5px; line-height: 1.2; min-height: 30px;}
+        .off { color: #4caf50; font-size: 10px; font-weight: 700; margin-bottom: 8px; }
+        .buy-btn { background: linear-gradient(270deg, #00c853, #69f0ae); color: #fff !important; padding: 10px 0; border-radius: 6px; text-decoration: none; font-weight: 800; font-size: 11px; display: block; }
+
+        /* Modal / Zoom Styles */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; padding: 20px; }
+        .modal-overlay img { max-width: 100%; max-height: 70vh; border-radius: 10px; margin-bottom: 20px; }
+        .modal-buy-btn { background: #22C55E; color: white !important; padding: 15px 40px; text-decoration: none; font-weight: 800; border-radius: 30px; font-size: 16px; box-shadow: 0 5px 15px rgba(34, 197, 94, 0.4); }
+        .close-modal { position: absolute; top: 20px; right: 20px; color: white; font-size: 35px; cursor: pointer; }
+        .imgOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.96); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+        .imgOverlay img { max-width: 95%; max-height: 95%; border-radius: 10px; }
+
+        /* Animations */
+        @keyframes flowTitle { to { background-position: 200% center; } }
+        @keyframes pulseHint { 0%, 100% { opacity: 0.8; transform: scale(0.98); } 50% { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    <div class="merged-container">
+        <div class="timer-part">
+            <div class="line1">🚀 GET ANY COURSE⚡DIGITAL PRODUCT AT</div>
+            <div class="line2">
+                <span class="discount">99% OFF</span>
+                <span class="timer-text">⏳ <span id="countdown-merged">02H 00M 00S</span></span>
+            </div>
+        </div>
+        <div class="image-part">
+            <img onclick="openImage(this)" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEibB_-u9wA7f5qbbNDwTHlFRuHVENpmjS1tAF38q-3ss0T9LeTv9NFK75Bj-hE71HQmULLu-KmG3ek32HmT1Q-QOyr3YoODaSCcEt_InvhlojuwWI33AuVspPTalXBG48NcqHqxqIdp0emFYzmMiqdcb4X9SorIEu4lhb3-e2CM3a_oFIhsS-NVcOOGjmrq/s1956/1000089888.jpg" alt="Special Offer">
+        </div>
+    </div>
+
+    <div style="text-align:center; font-size:16px; font-weight:700; margin:15px 0 10px; color:#22C55E;">How to Use Our Website [ Full Demo ]</div>
+    <div style="width:90%; margin:0 auto 20px; border-radius:22px; overflow:hidden; border:2px solid #22C55E;">
+        <iframe allowfullscreen="" loading="lazy" src="https://www.youtube.com/embed/G3u3x-bPoL4" style="width:100%; height:200px; border:0; display:block;"></iframe>
+    </div>
+
+    <div style="display:flex; justify-content:center; margin:10px 0 20px;">
+        <a href="https://t.me/+dN0FYUl0lTcwMWFl" target="_blank" style="display:flex; align-items:center; gap:8px; padding:12px 22px; font-size:14px; font-weight:700; color:#fff !important; text-decoration:none; background:#0b0e23; border-radius:999px; border:2px solid #00FF00;">
+            <img src="https://telegram.org/img/t_logo.svg" width="18" /> Join My Channel & Contact Me
+        </a>
+    </div>
+
+    <div class="ronin-nav-wrapper">
+        <div class="nav-header-row">
+            <div class="badge-small"><span class="badge-text">Categories</span></div>
+            <div class="scroll-hint-side">« Scroll Left/Right »</div>
+        </div>
+        <div class="nav-scroll-container">
+            <a href="https://theronincourseee.blogspot.com/p/1.html" class="nav-link-box active"><i class="material-icons">insights</i><span>Stock Market</span></a>
+            <a href="https://theronincourseee.blogspot.com/p/2.html" class="nav-link-box"><i class="material-icons">format_list_bulleted</i><span>Course List</span></a>
+            <a href="https://theronincourseee.blogspot.com/p/3.html" class="nav-link-box"><i class="material-icons">collections_bookmark</i><span>Bundles</span></a>
+            <a href="https://theronincourseee.blogspot.com/p/4.html" class="nav-link-box"><i class="material-icons">verified</i><span>Premium</span></a>
+            <a href="https://theronincourseee.blogspot.com/p/5.html" class="nav-link-box"><i class="material-icons">account_balance_wallet</i><span>Trading View</span></a>
+            <a href="https://theronincourseee.blogspot.com/p/6.html" class="nav-link-box"><i class="material-icons">psychology</i><span>Skills</span></a>
+        </div>
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <img onclick="openModal(this.src, 'https://theronincourseee.blogspot.com/p/1.html')" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh5twrjvASLNNHmmP_fhGpY7GPuBfv3_1YaERlZUrhLcqWGkGsG4LbtAF7Phbsy871Wd9-KTL4yEH91LeSRHNRBKEBbCcVARHk52QKD_ef49AlylKK20ZGUlZr2CwDjbWwzD16qJK7YRxoQswrwxS5ak1FQsW0hIz2PSQfznkcBUHo_2YafVMOxoz8eDEFk/s1536/1000090310.png">
+            <p class="title">𝟭] 𝗟𝗔𝗧𝗘𝗦𝗧 𝗖𝗢𝗨𝗥𝗦𝗘𝗦 🍀</p>
+            <div class="off">💯% Safe Checkout</div>
+            <a class="buy-btn" href="https://theronincourseee.blogspot.com/p/1.html">SHOP NOW</a>
+        </div>
+        <div class="product-card">
+            <img onclick="openModal(this.src, 'https://theronincourseee.blogspot.com/p/2.html?m=1')" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgtYzsAT_5fsF-QpGbZLpGnx7Zrz1uCGfN25bvUSRXwICMkcCigBj5jxvkvGw3QHmenX_0r4lctTmV0h9jK-aDQi2FY7FVL2-4HjSCWniaKLxAtufVgM9JjAob2B8Jap3Cc39T97Oy-mtiVPruLKTzMdDTNR4_zH-HQzQLT8ZegHEi6LaACMjeoi0oOARZ7/s1600/1000090318.png">
+            <p class="title">𝟮] 𝗧𝗢𝗧𝗔𝗟 𝗟𝗜𝗦𝗧 🍀</p>
+            <div class="off">💯% Safe Checkout</div>
+            <a class="buy-btn" href="https://theronincourseee.blogspot.com/p/2.html?m=1">SHOP NOW</a>
+        </div>
+        <div class="product-card">
+            <img onclick="openModal(this.src, 'https://theronincourseee.blogspot.com/p/3.html')" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhAEYpeuyk1NkFiVFekaMPHm3J-n6ojs8TDxZvrMljg4idDvgeHa_6J2AAILELfqHrL3cAIpND8B9ZktouQn31uyDL4wQ5wsLeFiEK8NtTmOSUpOb-DibI4Xsf6L1lA_B7gRAenJmFjf4m5xJkGOeN8xocnSM3ec0WA6qzsgvMnis0ELXW1NMr-T1O82UbU/s16000/1000087633.jpg">
+            <p class="title">𝟯] 𝗕𝗨𝗡𝗗𝗟𝗘 𝗟𝗜𝗦𝗧 🍀</p>
+            <div class="off">💯% Safe Checkout</div>
+            <a class="buy-btn" href="https://theronincourseee.blogspot.com/p/3.html">SHOP NOW</a>
+        </div>
+        <div class="product-card">
+            <img onclick="openModal(this.src, 'https://theronincourseee.blogspot.com/p/4.html')" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg33JQugZreyFPsU5wY4a-BWr5zUiZvdWOJ0CR_MjMJHI34NAKPLuVe2VMuejsbIZtj30KorhsATHX5ENJswKFj6MD7mbiD_l4OnYQaykYkxy2KAoKSmjK8v6iLGf_8OJiQZZYZnuXdxMSWBVxGsZG1ewMD5P_NjxnVI5zu1dsfV_hXHdjTER_-P1vIWwN5/s3464/1000090874.jpg">
+            <p class="title">𝟰] 𝗣𝗥𝗘𝗠𝗜𝗨𝗠 𝗦𝗖𝗛𝗘𝗠𝗘🍀</p>
+            <div class="off">💯% Safe Checkout</div>
+            <a class="buy-btn" href="https://theronincourseee.blogspot.com/p/4.html">SHOP NOW</a>
+        </div>
+        <div class="product-card">
+            <img onclick="openModal(this.src, 'https://theronincourseee.blogspot.com/p/5.html')" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_MNUQqZ8sUOufVrZqo0_W6PUiUPR9tY1GtfrQUL2WkRXLzXNatP0lkJLiOPlc_uGJ_IQlN0nA1DAl3XQbZcf82Q_E7xgV6xuQlPjqkcht-cTkrv_1di8nVrCHNnLm1cfQIT5TBVP48W0K0nkZDwkO4X_BJKYEFvITGlnZN0sQIP3piAvHgoLmbbqfN7cE/s1860/1000087635.jpg">
+            <p class="title">𝟱] 𝗧𝗥𝗔𝗗𝗜𝗡𝗚 𝗩𝗜𝗘𝗪 🍀</p>
+            <div class="off">💯% Safe Checkout</div>
+            <a class="buy-btn" href="https://theronincourseee.blogspot.com/p/5.html">SHOP NOW</a>
+        </div>
+        <div class="product-card">
+            <img onclick="openModal(this.src, 'https://theronincourseee.blogspot.com/p/6.html')" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhie1k25v5lTBhgyT9TXfTVXxedpfLIq_YV8-EjIW3WXPiqQNqpTS-Ur7X_67U9qb7b5xhMadYPXCuEReUfzUVd2oCncpDOevY5FMU4nxVpQeaHQrCTe5adIVpqyupX9A_2jcHpUiDY6oF60nzpJRWo-bdD426CLU3faFQ_fFYV_L_wpaq8QxgDfgFfNMyE/s1860/1000090320.jpg">
+            <p class="title">𝟲] 𝗦𝗞𝗜𝗟𝗟 𝗗𝗘𝗩 🍀</p>
+            <div class="off">💯% Safe Checkout</div>
+            <a class="buy-btn" href="https://theronincourseee.blogspot.com/p/6.html">SHOP NOW</a>
+        </div>
+        <div class="product-card">
+            <img onclick="openModal(this.src, 'https://theronincourseee.blogspot.com/p/7.html?m=1')" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhvCTn48S-C_4uZJwETLlne8xl67rtSjJcHqkXmSCGCnk_Ccob-T_O3X2mVPJM8Fstu4DVS0XIDGGHkH-hBfLaZUfbbbSGeSgZY2_S0rBoiUR_U6lYp7NknzwgfwtNLDuzDLcaWenbsxLXeLCA1OqLt-ko0O6B8pySvlvYtMJgnOwt3UodbqFHM2NdikzIf/s1860/1000090323.jpg">
+            <p class="title">𝟳] 𝗦𝗞𝗜𝗟𝗟 𝗣𝗔𝗖𝗞𝗔𝗚𝗘 🍀</p>
+            <div class="off">💯% Safe Checkout</div>
+            <a class="buy-btn" href="https://theronincourseee.blogspot.com/p/7.html?m=1">SHOP NOW</a>
+        </div>
+        <div class="product-card">
+            <img onclick="openModal(this.src, 'https://theronincourseee.blogspot.com/p/8.html?m=1')" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_zgJ2ac3l4kOw8Ka5nJGRCrWg_ynahK1NpniqkIoKRHhdOjXF8E9XQ3g5V28U3OmXgXyS1-UG2qUBzmIzmo-w059iYbaBEhNbD7KOiDHRj6bLEHoahodtOypfEQjvd1RqEmlg8qdTnfPvrEMPeY4FwVpPt2vT9L5ZASkRZjQSSBpdhVBe4oTn7-9eq9G5/s16000/1000087639.jpg">
+            <p class="title">𝟴] 𝗣𝗗𝗙 𝗘-𝗕𝗢𝗢𝗞𝗦 📚</p>
+            <div class="off">💯% Safe Checkout</div>
+            <a class="buy-btn" href="https://theronincourseee.blogspot.com/p/8.html?m=1">SHOP NOW</a>
+        </div>
+        <div class="product-card">
+            <img onclick="openModal(this.src, 'https://theronincourseee.blogspot.com/p/9.html')" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEijHvze7_t7B9gHLgV5wmPuo9cfhvrF8Ihyphenhyphenw75Mv722KU2-Q_L-vsFSoq48ebf7RHU4YAGh7BdYyGb6Aqj_Ymewxw0_X5QMcndwtFpB_Z1EhZEEEl7axkRSG__rXDX4CCs0p1aemNMDVy-cQbG7QIYZuvx8vbAh51OyFNszSHlKHx9ZDw3rF_BQ-CNl0rCq/s1860/1000087699.jpg">
+            <p class="title">𝟵] 𝗩𝗜𝗥𝗔𝗟 𝗥𝗘𝗘𝗟𝗦 🍀</p>
+            <div class="off">💯% Safe Checkout</div>
+            <a class="buy-btn" href="https://theronincourseee.blogspot.com/p/9.html">SHOP NOW</a>
+        </div>
+        <div class="product-card">
+            <img onclick="openModal(this.src, 'https://theronincourseee.blogspot.com/p/10.html?m=1')" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLulTNbXQJ6iCOoO-ZG-UZfinXYWmEyz4S8RB4zpNDsnZAHPBU3M6BYfvQD0JvOWw77puT7SYviRPDoY_MhdpQLErB1-HLji1cUKLuGjPuLQEY8k3s8gptLpfxcNpVnn0z18iSXMNX4egOVRMpuOB5ALhfhScOlfPAdoeo-nqkI0dOSLmpRg55CfHoU1Gu/s1860/1000087770.jpg">
+            <p class="title">𝟭𝟬] 𝗘𝗗𝗜𝗧𝗜𝗡𝗚 𝗔𝗦𝗦𝗘𝗧𝗦 🍀</p>
+            <div class="off">💯% Safe Checkout</div>
+            <a class="buy-btn" href="https://theronincourseee.blogspot.com/p/10.html?m=1">SHOP NOW</a>
+        </div>
+        <div class="product-card">
+            <img onclick="openModal(this.src, 'https://theronincourseee.blogspot.com/p/11.html')" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhUuj3YH2AWhnQQaU5F9wNSPiK4_rF75GFsOA8eJrBeCHEAt8Vh_KtIPUkLKEf1P6gIdPQedJSC6YXmWp8F7yx3HoEBFlUBdio8pAd6jXBIqXjY3r2s_Xoh_IdoQx35qqfYayt0TlZVbGQ0B6tdJP2UcyE-e_GbQVegWYQNyGkverRTNIMwzqymti5lhyzJ/s1860/1000087832.jpg">
+            <p class="title">𝟭𝟭] 𝗗𝗜𝗚𝗜𝗧𝗔𝗟 𝗔𝗦𝗦𝗘𝗧𝗦 🍀</p>
+            <div class="off">💯% Safe Checkout</div>
+            <a class="buy-btn" href="https://theronincourseee.blogspot.com/p/11.html">SHOP NOW</a>
+        </div>
+    </div>
+</div>
+
+<div id="productModal" class="modal-overlay">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <img id="modalImg" src="">
+    <a id="modalLink" class="modal-buy-btn" href="#">SHOP NOW</a>
+</div>
+
+<script>
+    // Timer
+    (function() {
+        var el = document.getElementById("countdown-merged");
+        var endTime = new Date().getTime() + (2 * 60 * 60 * 1000);
+        setInterval(function() {
+            var now = new Date().getTime();
+            var d = endTime - now;
+            if (d <= 0) { el.innerHTML = "EXPIRED"; return; }
+            var h = Math.floor(d / 3600000);
+            var m = Math.floor((d % 3600000) / 60000);
+            var s = Math.floor((d % 60000) / 1000);
+            el.innerHTML = (h<10?"0"+h:h)+"H "+(m<10?"0"+m:m)+"M "+(s<10?"0"+s:s)+"S";
+        }, 1000);
+    })();
+
+    // Image Zoom Helper
+    function openImage(img){
+        var overlay = document.createElement("div");
+        overlay.className = "imgOverlay";
+        overlay.onclick = function(){document.body.removeChild(overlay);};
+        var fullImg = document.createElement("img");
+        fullImg.src = img.src;
+        overlay.appendChild(fullImg);
+        document.body.appendChild(overlay);
+    }
+
+    // Modal Controls
+    function openModal(imgSrc, linkSrc) {
+        document.getElementById("modalImg").src = imgSrc;
+        document.getElementById("modalLink").href = linkSrc;
+        document.getElementById("productModal").style.display = "flex";
+    }
+    function closeModal() {
+        document.getElementById("productModal").style.display = "none";
+    }
+    window.onclick = function(event) {
+        var modal = document.getElementById("productModal");
+        if (event.target == modal) { closeModal(); }
+    }
+</script>
+
+</body>
+</html>
