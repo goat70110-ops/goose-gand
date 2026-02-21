@@ -476,6 +476,169 @@
         startCountdown();
     };
 </script>
+<!-- Mobile Menu, Overlay and Back To Top --> 
+<div id='slide-menu'>
+  <div class='slide-menu-header'>
+    <div class='mobile-search'>
+      <form class='search-form' expr:action='data:blog.searchUrl' role='search'>
+        <input autocomplete='off' class='search-input' expr:placeholder='data:messages.search' name='q' value=''/>
+        <button class='search-action' type='submit' value=''/>
+      </form>
+    </div>
+    <span class='hide-rankify-pro-mobile-menu'/>
+  </div>
+  <div class='slide-menu-flex'>
+    <div class='rankify-pro-mobile-menu' id='rankify-pro-mobile-menu'/>
+    <div class='mobile-menu-footer'>
+      <div class='mobile-navbar-social'/>
+      <div class='mobile-navbar-menu'/>
+    </div>
+  </div>
+</div>
+<div class='overlay'/>
+<a class='back-top' href='javascript:;'/>
 
+    
+   <div class='contact-container'>
+  <div class='msg-icon-box' onclick='toggleTelegram()'>
+    <div class='msg-icon pulse-animation' id='pulseIcon'>
+      <img alt='Contact' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCxS-EkobhBD5N2yLOC1BnqYBPwFNx0B09IR-_SuvzcZ1kMbAQE5EMn6GKU1H84RbwvsT6MzilI9qpRHOJiVVs54Tadnp8X07piZT3dTDrVkpGJf4dUfuwVx4wCuCDjfiSsJ5_3eaGBSJTXS5dYyk7hthMx3ptIUeIuuamdc_hpZza1nf2jGIgBZSptDsH/s585/1000088785.png'/>
+    </div>
+    <span class='msg-text-bubble'>💬 Hi! Need any help? 😊</span>
+  </div>
+
+  <a class='tg-float' href='https://t.me/TheRonincoursess' id='tgBox' target='_blank'>
+    <span class='tg-text'>Message me</span>
+    <img alt='Telegram' src='https://telegram.org/img/t_logo.svg'/>
+  </a>
+</div>
+
+<style>
+/* Container Position - Halka sa down kiya (65px) */
+.contact-container {
+  position: fixed;
+  bottom: 65px; 
+  right: 20px;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.msg-icon-box {
+  position: relative;
+  width: 65px;
+  height: 65px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.msg-icon img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Label Animation - 5 seconds tak chalega */
+.msg-text-bubble {
+  position: absolute;
+  right: 75px;
+  background: #ffffff;
+  color: #000;
+  padding: 8px 15px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  animation: premiumSlideOnce 5s ease-in-out forwards;
+}
+
+/* Telegram Pop-up - Direct Full Dikhega */
+.tg-float {
+  position: absolute;
+  bottom: 85px; /* Icon ke thik upar */
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #0088cc, #00a2ed);
+  padding: 12px 20px;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(0,136,204,0.4);
+  text-decoration: none !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  width: max-content;
+}
+
+.tg-float.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tg-text {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.tg-float img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Pulse/Blink Effect */
+.pulse-animation:before {
+  content: &quot;&quot;;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 136, 204, 0.4);
+  border-radius: 50%;
+  z-index: -1;
+  animation: ripple 2s infinite;
+}
+
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+@keyframes premiumSlideOnce {
+  0% { opacity: 0; transform: translateX(20px); }
+  10% { opacity: 1; transform: translateX(0); }
+  85% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(20px); visibility: hidden; }
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 480px) {
+  .contact-container { bottom: 55px; right: 15px; }
+  .msg-icon img { width: 55px; height: 55px; }
+  .msg-text-bubble { font-size: 11px; right: 65px; }
+}
+</style>
+
+<script type='text/javascript'>
+function toggleTelegram() {
+  const tgBox = document.getElementById(&quot;tgBox&quot;);
+  tgBox.classList.toggle(&quot;active&quot;);
+}
+
+// Blink effect ko thik tab band karega jab &quot;Contact Us&quot; label gayab hoga (5 seconds)
+setTimeout(() =&gt; {
+  const icon = document.getElementById(&#39;pulseIcon&#39;);
+  if(icon) {
+    icon.classList.remove(&#39;pulse-animation&#39;);
+  }
+}, 5000); // 5 sec is the same as label animation
+</script>
 </body>
 </html>
