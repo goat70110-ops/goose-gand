@@ -476,169 +476,240 @@
         startCountdown();
     };
 </script>
-<!-- Mobile Menu, Overlay and Back To Top --> 
-<div id='slide-menu'>
-  <div class='slide-menu-header'>
-    <div class='mobile-search'>
-      <form class='search-form' expr:action='data:blog.searchUrl' role='search'>
-        <input autocomplete='off' class='search-input' expr:placeholder='data:messages.search' name='q' value=''/>
-        <button class='search-action' type='submit' value=''/>
-      </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Navigation & Offer Bar</title>
+
+    <style>
+        /* --- RESET --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        /* --- TOP OFFER BAR (Clickable) --- */
+        .top-offer-bar {
+            position: fixed;
+            top: -150px; /* Initially hidden */
+            left: 0;
+            width: 100%;
+            z-index: 99999;
+            background: linear-gradient(135deg, #0088cc, #00a2ed); /* Telegram Blue Gradient */
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            text-decoration: none; /* Link underline hatane ke liye */
+        }
+
+        .top-offer-bar.visible { top: 0; }
+
+        .offer-content {
+            padding: 12px 50px 12px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .line1 { 
+            font-size: 13px; 
+            margin-bottom: 6px; 
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Telegram Logo Style */
+        .tg-icon {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .line2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .discount {
+            background: #fff;
+            color: #0088cc;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 900;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .timer {
+            background: rgba(0,0,0,0.15);
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            font-size: 20px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        /* --- BOTTOM NAVIGATION --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 50px;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+            z-index: 9999;
+            transition: transform 0.3s ease;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .bottom-nav.hidden { transform: translateY(100%); }
+
+        .nav-item {
+            color: #444;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+            flex: 1;
+            transition: 0.2s;
+        }
+
+        .nav-item svg { width: 22px; height: 22px; margin-bottom: 2px; stroke-width: 2.2; }
+
+        .nav-item.active { color: #0088cc; font-weight: 700; }
+        .nav-item.active svg { stroke: #0088cc; }
+
+        @media (max-width: 480px) {
+            .line1 { font-size: 11px; }
+            .discount { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<a href="https://t.me/YourTelegramUsername" class="top-offer-bar" id="top-offer-bar" target="_blank">
+    <div class="offer-content">
+        <div class="line1">
+            <svg class="tg-icon" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18.717-.962 4.084-1.362 5.441-.168.575-.532 1.039-1.079 1.147-.941.185-1.741-.336-2.505-.826l-1.385-.889-1.125 1.085c-.135.131-.269.24-.485.24-.312 0-.361-.202-.424-.439l-.68-2.227-2.029-.636c-.469-.147-.481-.469-.011-.664l8.281-3.193c.42-.162.883.084.793.96z"/></svg>
+            JOIN OUR TELEGRAM FOR 99% OFF 🚀
+        </div>
+        <div class="line2">
+            <span class="discount">GET ACCESS NOW</span>
+            <span class="timer">⌛ <span id="countdown">00:00:00</span></span>
+        </div>
     </div>
-    <span class='hide-rankify-pro-mobile-menu'/>
-  </div>
-  <div class='slide-menu-flex'>
-    <div class='rankify-pro-mobile-menu' id='rankify-pro-mobile-menu'/>
-    <div class='mobile-menu-footer'>
-      <div class='mobile-navbar-social'/>
-      <div class='mobile-navbar-menu'/>
-    </div>
-  </div>
-</div>
-<div class='overlay'/>
-<a class='back-top' href='javascript:;'/>
+    <button type="button" class="close-btn" id="close-offer" onclick="event.preventDefault(); hideBar();">&times;</button>
+</a>
 
-    
-   <div class='contact-container'>
-  <div class='msg-icon-box' onclick='toggleTelegram()'>
-    <div class='msg-icon pulse-animation' id='pulseIcon'>
-      <img alt='Contact' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCxS-EkobhBD5N2yLOC1BnqYBPwFNx0B09IR-_SuvzcZ1kMbAQE5EMn6GKU1H84RbwvsT6MzilI9qpRHOJiVVs54Tadnp8X07piZT3dTDrVkpGJf4dUfuwVx4wCuCDjfiSsJ5_3eaGBSJTXS5dYyk7hthMx3ptIUeIuuamdc_hpZza1nf2jGIgBZSptDsH/s585/1000088785.png'/>
-    </div>
-    <span class='msg-text-bubble'>💬 Hi! Need any help? 😊</span>
-  </div>
+<nav class="bottom-nav" id="bottom-nav">
+    <a class="nav-item" href="https://theronincourseee.blogspot.com/p/flash-sale-limited-time-offer-99-off.html?m=1">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Home</span>
+    </a>
+    <a class="nav-item" href="https://theronincourseee.blogspot.com/p/community.html?m=1">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Community</span>
+    </a>
+    <a class="nav-item" href="https://theronincourseee.blogspot.com/p/reviews.html?m=1">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="12 2 15 8 21 9 17 14 18 21 12 18 6 21 7 14 3 9 9 8 12 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Reviews</span>
+    </a>
+    <a class="nav-item" href="https://theronincourseee.blogspot.com/p/blog-page_35.html?m=1">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect height="18" rx="2" ry="2" width="18" x="3" y="4" stroke-linecap="round" stroke-linejoin="round"/><line x1="16" x2="16" y1="2" y2="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" x2="8" y1="2" y2="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" x2="21" y1="10" y2="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Contact</span>
+    </a>
+</nav>
 
-  <a class='tg-float' href='https://t.me/TheRonincoursess' id='tgBox' target='_blank'>
-    <span class='tg-text'>Message me</span>
-    <img alt='Telegram' src='https://telegram.org/img/t_logo.svg'/>
-  </a>
-</div>
+<script>
+    // --- 1. SET TELEGRAM LINK ---
+    // Yahan apna Telegram username ya link daal dena
+    const telegramLink = "https://t.me/YourTelegramUsername"; 
 
-<style>
-/* Container Position - Halka sa down kiya (65px) */
-.contact-container {
-  position: fixed;
-  bottom: 65px; 
-  right: 20px;
-  z-index: 999999;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
+    // --- 2. ACTIVE NAV HIGHLIGHT ---
+    const currentURL = window.location.href.split(/[?#]/)[0];
+    document.querySelectorAll('.nav-item').forEach(item => {
+        if (item.href.split(/[?#]/)[0] === currentURL) {
+            item.classList.add('active');
+        }
+    });
 
-.msg-icon-box {
-  position: relative;
-  width: 65px;
-  height: 65px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    // --- 3. SCROLL HIDE/SHOW NAV ---
+    let lastScrollTop = 0;
+    const bottomNav = document.getElementById('bottom-nav');
+    window.addEventListener('scroll', () => {
+        let st = window.pageYOffset || document.documentElement.scrollTop;
+        if (st > lastScrollTop && st > 100) {
+            bottomNav.classList.add('hidden');
+        } else {
+            bottomNav.classList.remove('hidden');
+        }
+        lastScrollTop = st <= 0 ? 0 : st;
+    });
 
-.msg-icon img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
+    // --- 4. COUNTDOWN TIMER ---
+    function startCountdown() {
+        const el = document.getElementById('countdown');
+        let endTime = localStorage.getItem("offerEndTime");
+        if (!endTime) {
+            endTime = new Date().getTime() + (2 * 60 * 60 * 1000); // 2 hours
+            localStorage.setItem("offerEndTime", endTime);
+        }
+        
+        setInterval(() => {
+            const now = new Date().getTime();
+            const dist = endTime - now;
+            if (dist < 0) { el.innerHTML = "EXPIRED"; return; }
+            const h = Math.floor(dist / 3600000).toString().padStart(2, '0');
+            const m = Math.floor((dist % 3600000) / 60000).toString().padStart(2, '0');
+            const s = Math.floor((dist % 60000) / 1000).toString().padStart(2, '0');
+            el.innerHTML = `${h}:${m}:${s}`;
+        }, 1000);
+    }
 
-/* Label Animation - 5 seconds tak chalega */
-.msg-text-bubble {
-  position: absolute;
-  right: 75px;
-  background: #ffffff;
-  color: #000;
-  padding: 8px 15px;
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: 800;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  animation: premiumSlideOnce 5s ease-in-out forwards;
-}
+    // --- 5. SHOW/HIDE OFFER BAR ---
+    const bar = document.getElementById('top-offer-bar');
+    function hideBar() {
+        bar.style.top = '-150px';
+    }
 
-/* Telegram Pop-up - Direct Full Dikhega */
-.tg-float {
-  position: absolute;
-  bottom: 85px; /* Icon ke thik upar */
-  right: 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: linear-gradient(135deg, #0088cc, #00a2ed);
-  padding: 12px 20px;
-  border-radius: 50px;
-  box-shadow: 0 10px 25px rgba(0,136,204,0.4);
-  text-decoration: none !important;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s ease;
-  width: max-content;
-}
-
-.tg-float.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.tg-text {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.tg-float img {
-  width: 24px;
-  height: 24px;
-}
-
-/* Pulse/Blink Effect */
-.pulse-animation:before {
-  content: &quot;&quot;;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 136, 204, 0.4);
-  border-radius: 50%;
-  z-index: -1;
-  animation: ripple 2s infinite;
-}
-
-@keyframes ripple {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(1.8); opacity: 0; }
-}
-
-@keyframes premiumSlideOnce {
-  0% { opacity: 0; transform: translateX(20px); }
-  10% { opacity: 1; transform: translateX(0); }
-  85% { opacity: 1; transform: translateX(0); }
-  100% { opacity: 0; transform: translateX(20px); visibility: hidden; }
-}
-
-/* Mobile Responsive */
-@media screen and (max-width: 480px) {
-  .contact-container { bottom: 55px; right: 15px; }
-  .msg-icon img { width: 55px; height: 55px; }
-  .msg-text-bubble { font-size: 11px; right: 65px; }
-}
-</style>
-
-<script type='text/javascript'>
-function toggleTelegram() {
-  const tgBox = document.getElementById(&quot;tgBox&quot;);
-  tgBox.classList.toggle(&quot;active&quot;);
-}
-
-// Blink effect ko thik tab band karega jab &quot;Contact Us&quot; label gayab hoga (5 seconds)
-setTimeout(() =&gt; {
-  const icon = document.getElementById(&#39;pulseIcon&#39;);
-  if(icon) {
-    icon.classList.remove(&#39;pulse-animation&#39;);
-  }
-}, 5000); // 5 sec is the same as label animation
+    window.onload = () => {
+        setTimeout(() => bar.classList.add('visible'), 1000);
+        startCountdown();
+    };
 </script>
+
 </body>
 </html>
